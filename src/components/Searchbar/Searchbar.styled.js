@@ -35,8 +35,8 @@ export const FormBtnStyled = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/55/Magnifying_glass_icon.svg');
-  background-size: 40%;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/dd/Magnifying_Glass_%2889626%29_-_The_Noun_Project.svg');
+  background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.6;

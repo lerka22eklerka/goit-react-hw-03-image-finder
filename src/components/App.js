@@ -2,6 +2,8 @@ import { Component } from "react";
 import * as API from '../API/ApiQuery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Loader } from "./Loader/Loader";
+import { Button } from './Button/Button';
 import { AppStyled } from './App.styled';
 
 export class App extends Component {
@@ -71,14 +73,23 @@ export class App extends Component {
     }));
   };
 
+  handleLoadMore = () => {
+    this.setState(p => ({ page: p.page + 1 }));
+  };
 
   render() {
-    const { data } = this.state;
+    const { data, isLoading, page, pages, showLargePic, picData } = this.state;
     return (
       <AppStyled>
         <Searchbar onSubmit={this.setQuery} />
         {data.length > 0 && (
-          <ImageGallery data={data} toggleLargeSize={this.toggleLargeSize}/>
+          <ImageGallery data={data} toggleLargeSize={this.toggleLargeSize} />
+        )}
+        {isLoading && <Loader />}
+        {data.length > 0 && page < pages && (
+          <Button type="button" onClick={this.handleLoadMore}>
+            Load more
+          </Button>
         )}
       </AppStyled>
     );

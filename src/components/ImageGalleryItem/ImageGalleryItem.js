@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
+import { GalleryItemStyled, ImgStyled } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ url, preview, alt, toggleLargeSize }) => {
   return (
-    <li
+    <GalleryItemStyled
       onClick={() => {
         toggleLargeSize({ url, alt });
       }}
     >
-      <img alt={alt} src={preview} />
-    </li>
+      <ImgStyled alt={alt} src={preview} />
+    </GalleryItemStyled>
   );
 };
 
