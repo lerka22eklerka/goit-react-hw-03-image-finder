@@ -2,6 +2,7 @@ import { Component } from "react";
 import * as API from '../API/ApiQuery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { AppStyled } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -74,13 +75,12 @@ export class App extends Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
+      <AppStyled>
         <Searchbar onSubmit={this.setQuery} />
         {data.length > 0 && (
           <ImageGallery data={data} toggleLargeSize={this.toggleLargeSize}/>
         )}
-        React homework template
-      </div>
+      </AppStyled>
     );
   }
 };

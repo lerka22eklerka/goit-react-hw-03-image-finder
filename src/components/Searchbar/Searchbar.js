@@ -1,12 +1,18 @@
 import { Component } from "react";
-import { Field, Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import PropTypes from 'prop-types';
-
+import {
+  FormBtnStyled,
+  FormStyled,
+  InputStyled,
+  SearchbarBox,
+} from './Searchbar.styled';
+import { ImSearch } from 'react-icons/im';
 
 export class Searchbar extends Component {
     render() {
         return (
-          <div>
+          <SearchbarBox>
             <Formik
               initialValues={{ search: '' }}
               onSubmit={(values, actions) => {
@@ -15,24 +21,22 @@ export class Searchbar extends Component {
               }}
             >
               {({ isSubmitting }) => (
-                <Form>
+                <FormStyled>
                   {isSubmitting && <div>Loading...</div>}
-                  <button
-                    type="submit"
-                    className="button"
-                    disabled={isSubmitting}
-                  ></button>
-                  <Field
+                  <FormBtnStyled type="submit" disabled={isSubmitting}>
+                    {/* <ImSearch width={30} /> */}
+                  </FormBtnStyled>
+                  <InputStyled
                     name="search"
                     type="text"
                     autoComplete="off"
                     autoFocus
                     placeholder="Search images and photos"
                   />
-                </Form>
+                </FormStyled>
               )}
             </Formik>
-          </div>
+          </SearchbarBox>
         );
 
     }
