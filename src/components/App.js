@@ -14,7 +14,6 @@ export class App extends Component {
     data: [],
     total: 0,
     pages: 0,
-    error: '',
     query: '',
     showModal: false,
     imgData: {},
