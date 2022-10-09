@@ -56,9 +56,10 @@ export class App extends Component {
             isLoading: false,
           }));
         }
-      } catch (error) {
-        this.setState({ error: true, isLoading: false });
+      } catch (error) {       
         console.log(error);
+      } finally {
+        this.setState({ isLoading: false });
       }
     }
   }
