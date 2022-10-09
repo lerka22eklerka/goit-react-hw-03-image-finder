@@ -3,6 +3,7 @@ import * as API from '../API/ApiQuery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from "./Loader/Loader";
+import { Modal } from "./Modal/Modal";
 import { Button } from './Button/Button';
 import { AppStyled } from './App.styled';
 
@@ -15,8 +16,8 @@ export class App extends Component {
     pages: 0,
     error: '',
     query: '',
-    showLargePic: false,
-    picData: {},
+    showModal: false,
+    imgData: {},
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -31,7 +32,7 @@ export class App extends Component {
         const data = await API.getData(API.params);
         const { total, hits } = data;
 
-        const properStructHits = hits.map(
+        const isRequiredHits = hits.map(
           ({ id, largeImageURL, webformatURL, tags }) => ({
             id,
             largeImageURL,
@@ -42,15 +43,15 @@ export class App extends Component {
 
         if (query !== prevQuery) {
           this.setState({
-            data: [...properStructHits],
+            data: [...isRequiredHits],
             page: API.params.page,
             total: total,
             pages: Math.ceil(total / API.params.per_page),
             isLoading: false,
           });
         } else {
-          this.setState(p => ({
-            data: [...p.data, ...properStructHits],
+          this.setState(prevState => ({
+            data: [...prevState.data, ...isRequiredHits],
             page: API.params.page,
             isLoading: false,
           }));
@@ -66,30 +67,35 @@ export class App extends Component {
     this.setState({ query: value });
   };
 
-  toggleLargeSize = picData => {
-    this.setState(({ showLargePic }) => ({
-      showLargePic: !showLargePic,
-      picData,
+  toggleModal = imgData => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+      imgData,
     }));
   };
 
   handleLoadMore = () => {
-    this.setState(p => ({ page: p.page + 1 }));
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {
-    const { data, isLoading, page, pages, showLargePic, picData } = this.state;
+    const { data, isLoading, page, pages, showModal, imgData } = this.state;
     return (
       <AppStyled>
         <Searchbar onSubmit={this.setQuery} />
         {data.length > 0 && (
-          <ImageGallery data={data} toggleLargeSize={this.toggleLargeSize} />
+          <ImageGallery data={data} toggleLargeSize={this.toggleModal} />
         )}
         {isLoading && <Loader />}
         {data.length > 0 && page < pages && (
           <Button type="button" onClick={this.handleLoadMore}>
             Load more
           </Button>
+        )}
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img alt={imgData.alt} src={imgData.url} />
+          </Modal>
         )}
       </AppStyled>
     );

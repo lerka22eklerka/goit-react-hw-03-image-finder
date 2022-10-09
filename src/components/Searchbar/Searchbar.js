@@ -7,7 +7,7 @@ import {
   InputStyled,
   SearchbarBox,
 } from './Searchbar.styled';
-import { ImSearch } from 'react-icons/im';
+
 
 export class Searchbar extends Component {
     render() {
@@ -24,7 +24,6 @@ export class Searchbar extends Component {
                 <FormStyled>
                   {isSubmitting && <div>Loading...</div>}
                   <FormBtnStyled type="submit" disabled={isSubmitting}>
-                    {/* <ImSearch width={30} /> */}
                   </FormBtnStyled>
                   <InputStyled
                     name="search"
